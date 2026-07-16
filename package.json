@@ -15,7 +15,8 @@
 		"./tokens.css": "./tokens.css",
 		"./vitepress": "./vitepress/index.ts",
 		"./vitepress/style.css": "./vitepress/style.css",
-		"./vitepress/config": "./vitepress/config.ts",
+		"./vitepress/config": "./vitepress/config.mjs",
+		"./vitepress/config.ts": "./vitepress/config.ts",
 		"./shiki": "./catppuccin-mocha.json",
 		"./catppuccin-mocha.json": "./catppuccin-mocha.json"
 	},

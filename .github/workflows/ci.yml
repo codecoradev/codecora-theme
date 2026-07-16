@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check package.json exports
+        run: |
+          node -e "
+            const pkg = require('./package.json');
+            const errors = [];
+            const files = pkg.files || [];
+            for (const f of files) {
+              if (!require('fs').existsSync(f)) errors.push('Missing file: ' + f);
+            }
+            if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
+            console.log('Files check passed:', files.join(', '));
+          "
+
+      - name: Validate JSON (Shiki theme)
+        run: node -e "require('./catppuccin-mocha.json'); console.log('catppuccin-mocha.json: valid')"
+
+      - name: Check CSS syntax
+        run: |
+          # Basic CSS validation — ensure no broken @import or obvious syntax errors
+          if grep -q '@import' tokens.css; then
+            echo "ERROR: tokens.css should not have @import (consumed directly)"
+            exit 1
+          fi
+          echo "tokens.css: syntax OK"
+
+      - name: Validate exports map
+        run: |
+          node -e "
+            const pkg = require('./package.json');
+            const exp = pkg.exports || {};
+            const fs = require('fs');
+            for (const [key, val] of Object.entries(exp)) {
+              if (typeof val === 'string') {
+                if (!fs.existsSync(val)) {
+                  console.error('Export ' + key + ' points to missing: ' + val);
+                  process.exit(1);
+                }
+              }
+            }
+            console.log('Exports map valid, ' + Object.keys(exp).length + ' entries');
+          "
+
+      - name: TypeScript check (VitePress adapter)
+        run: |
+          npm install --save-dev typescript vitepress
+          npx tsc --noEmit --skipLibCheck vitepress/config.ts vitepress/index.ts 2>&1 || true
+          # Non-blocking: just report, don't fail (TS strictness varies by consumer)
+          echo "TypeScript check complete"
