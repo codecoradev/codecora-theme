@@ -5,7 +5,7 @@
  * so Node.js 24 can import it from node_modules without type-stripping errors.
  */
 import { defineConfig } from 'vitepress'
-import mochaShiki from '../catppuccin-mocha.json'
+import mochaShiki from '../catppuccin-mocha.json' with { type: 'json' }
 
 const ACCENT_VAR = {
   green: 'var(--cc-green)',
