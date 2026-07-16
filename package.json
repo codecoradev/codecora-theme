@@ -1,0 +1,32 @@
+{
+	"name": "@codecora/theme",
+	"version": "0.1.0",
+	"description": "CodeCora shared design tokens + VitePress adapter (Catppuccin Mocha). Single source of truth for web-landing and all product docs.",
+	"license": "Apache-2.0",
+	"type": "module",
+	"files": [
+		"tokens.css",
+		"catppuccin-mocha.json",
+		"vitepress"
+	],
+	"exports": {
+		".": "./tokens.css",
+		"./tokens": "./tokens.css",
+		"./tokens.css": "./tokens.css",
+		"./vitepress": "./vitepress/index.ts",
+		"./vitepress/style.css": "./vitepress/style.css",
+		"./vitepress/config": "./vitepress/config.ts",
+		"./shiki": "./catppuccin-mocha.json",
+		"./catppuccin-mocha.json": "./catppuccin-mocha.json"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": ["codecora", "vitepress", "catppuccin", "design-tokens", "theme"],
+	"peerDependencies": {
+		"vitepress": "^1.0.0"
+	},
+	"peerDependenciesMeta": {
+		"vitepress": { "optional": true }
+	}
+}

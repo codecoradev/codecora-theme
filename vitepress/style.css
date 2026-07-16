@@ -1,0 +1,101 @@
+/**
+ * CodeCora VitePress adapter.
+ *
+ * Imports the shared Catppuccin tokens and maps them onto VitePress's own
+ * CSS variables. Any product docs that adds this stylesheet instantly matches
+ * the web-landing look. Override --cc-accent per product (see index.ts).
+ */
+@import '../tokens.css';
+
+/* ── Brand / accent ──────────────────────────────────────────── */
+:root {
+	--vp-c-brand-1: var(--cc-accent);
+	--vp-c-brand-2: var(--cc-accent);
+	--vp-c-brand-3: var(--cc-accent);
+	--vp-c-brand-soft: var(--cc-accent-soft);
+
+	/* VitePress "brand" alias used widely */
+	--vp-c-brand: var(--cc-accent);
+
+	/* ── Backgrounds ──────────────────────────────────────────── */
+	--vp-c-bg: var(--cc-base);
+	--vp-c-bg-soft: var(--cc-mantle);
+	--vp-c-bg-mute: var(--cc-surface0);
+	--vp-c-bg-alt: var(--cc-crust);
+	--vp-c-gutter: var(--cc-mantle);
+	--vp-c-bg-up: var(--cc-base);
+	--vp-c-bg-down: var(--cc-mantle);
+	--vp-c-el: var(--cc-surface0);
+
+	/* ── Text ─────────────────────────────────────────────────── */
+	--vp-c-text-1: var(--cc-text);
+	--vp-c-text-2: var(--cc-subtext1);
+	--vp-c-text-3: var(--cc-subtext0);
+	--vp-c-text-4: var(--cc-overlay1);
+	--vp-c-text-code: var(--cc-text);
+
+	/* ── Borders / dividers ───────────────────────────────────── */
+	--vp-c-border: color-mix(in srgb, var(--cc-surface0) 75%, transparent);
+	--vp-c-divider: color-mix(in srgb, var(--cc-surface0) 70%, transparent);
+	--vp-c-gutter: var(--cc-mantle);
+
+	/* ── Semantic accent shades (VitePress expects a ramp) ────── */
+	--vp-c-tip-1: var(--cc-blue);
+	--vp-c-tip-2: var(--cc-blue);
+	--vp-c-tip-soft: color-mix(in srgb, var(--cc-blue) 14%, transparent);
+	--vp-c-warning-1: var(--cc-yellow);
+	--vp-c-warning-2: var(--cc-yellow);
+	--vp-c-warning-soft: color-mix(in srgb, var(--cc-yellow) 14%, transparent);
+	--vp-c-danger-1: var(--cc-red);
+	--vp-c-danger-2: var(--cc-red);
+	--vp-c-danger-soft: color-mix(in srgb, var(--cc-red) 14%, transparent);
+
+	/* ── Fonts ────────────────────────────────────────────────── */
+	--vp-font-family-base: var(--cc-font-sans);
+	--vp-font-family-mono: var(--cc-font-mono);
+
+	/* ── Code blocks ──────────────────────────────────────────── */
+	--vp-code-line-height: 1.6;
+	--vp-code-font-size: 0.875rem;
+	--vp-code-block-bg: var(--cc-crust);
+	--vp-code-bg: var(--cc-crust);
+
+	/* ── Button ───────────────────────────────────────────────── */
+	--vp-button-brand-bg: var(--cc-accent);
+	--vp-button-brand-text: var(--cc-crust);
+	--vp-button-brand-hover-bg: color-mix(in srgb, var(--cc-accent) 88%, white);
+	--vp-button-brand-active-bg: color-mix(in srgb, var(--cc-accent) 80%, black);
+}
+
+/* ── Home hero gradient uses the accent ──────────────────────── */
+:root {
+	--vp-home-hero-name-color: transparent;
+	--vp-home-hero-name-background: linear-gradient(
+		120deg,
+		var(--cc-accent) 30%,
+		var(--cc-lavender)
+	);
+	--vp-home-hero-image-background-image: linear-gradient(
+		-135deg,
+		color-mix(in srgb, var(--cc-accent) 12%, transparent),
+		color-mix(in srgb, var(--cc-lavender) 8%, transparent)
+	);
+	--vp-home-hero-image-filter: drop-shadow(
+		0 0 40px color-mix(in srgb, var(--cc-accent) 20%, transparent)
+	);
+}
+
+/* ── Selection + focus ───────────────────────────────────────── */
+::selection {
+	background: color-mix(in srgb, var(--cc-accent) 30%, transparent);
+	color: var(--cc-text);
+}
+
+/* ── Minor niceties ──────────────────────────────────────────── */
+.VPDoc .content-container {
+	max-width: 800px;
+}
+
+.vp-code-group .tabs {
+	border-radius: var(--cc-radius-sm) var(--cc-radius-sm) 0 0;
+}
