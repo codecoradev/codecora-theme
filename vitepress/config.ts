@@ -53,6 +53,14 @@ export interface CodeCoraConfig {
 	nav?: Array<{ text: string; link: string }>
 	/** Disable local search if a product wants Algolia later. */
 	search?: false
+	/** Extra VitePress head tags (merged after theme defaults). */
+	head?: UserConfig['head']
+	/** VitePress ignoreDeadLinks (boolean or RegExp[]). */
+	ignoreDeadLinks?: UserConfig['ignoreDeadLinks']
+	/** VitePress srcExclude patterns. */
+	srcExclude?: UserConfig['srcExclude']
+	/** Show last-updated timestamp. */
+	lastUpdated?: boolean
 }
 
 export function createConfig(opts: CodeCoraConfig): UserConfig {
@@ -67,6 +75,11 @@ export function createConfig(opts: CodeCoraConfig): UserConfig {
 
 		// NEW routing scheme: codecora.dev/<product>/docs/
 		base: `/${opts.product}/docs/`,
+
+		// Forward optional user config
+		...(opts.ignoreDeadLinks !== undefined && { ignoreDeadLinks: opts.ignoreDeadLinks }),
+		...(opts.srcExclude && { srcExclude: opts.srcExclude }),
+		...(opts.lastUpdated !== undefined && { lastUpdated: opts.lastUpdated }),
 
 		head: [
 			['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],

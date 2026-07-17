@@ -28,6 +28,12 @@ export function createConfig(opts) {
     lang: 'en',
     cleanUrls: true,
     base: `/${opts.product}/docs/`,
+
+    // Forward optional user config
+    ...(opts.ignoreDeadLinks !== undefined && { ignoreDeadLinks: opts.ignoreDeadLinks }),
+    ...(opts.srcExclude && { srcExclude: opts.srcExclude }),
+    ...(opts.lastUpdated !== undefined && { lastUpdated: opts.lastUpdated }),
+
     head: [
       ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
       ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
