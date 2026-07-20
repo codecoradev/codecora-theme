@@ -1,6 +1,6 @@
 {
 	"name": "@codecora/theme",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "CodeCora shared design tokens + VitePress adapter (Catppuccin Mocha). Single source of truth for web-landing and all product docs.",
 	"license": "Apache-2.0",
 	"type": "module",
